@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 @api_view(("POST",))
 def add_lead(request):
+    print(request.data)
     form = LeadSerializer(data=request.data)
     if form.is_valid():
         form.save()

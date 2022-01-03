@@ -48,7 +48,7 @@ class TestApi(unittest.TestCase):
             "lastname": "Menon",
             "email": "test@gmail.com",
             "notes": "Testing",
-            "contacted": True,
+            "contacted": "True",
         }
         response = post_request("add/", data)
         self.assertTrue(response.ok)
@@ -75,7 +75,7 @@ class TestApi(unittest.TestCase):
             "lastname": "Giridhar",
             "email": "test@gmail.com",
             "notes": "Testing",
-            "contacted": True,
+            "contacted": "True",
         }
         response = put_request("1/update/", data)
         self.assertTrue(response.ok)

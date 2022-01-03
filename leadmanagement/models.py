@@ -1,8 +1,6 @@
 from django.db import models
 from datetime import date
 
-# Create your models here.
-
 
 class Lead(models.Model):
     firstname = models.CharField(max_length=100)
