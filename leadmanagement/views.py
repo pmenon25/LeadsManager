@@ -27,9 +27,12 @@ def get_all_leads(request):
 
 @api_view(("GET",))
 def get_lead_by_id(request, id):
-    leads = Lead.objects.get(id=id)
-    serializer = LeadSerializer(leads)
-    return Response(serializer.data)
+    try:
+        leads = Lead.objects.get(id=id)
+        serializer = LeadSerializer(leads)
+        return Response(serializer.data)
+    except Lead.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(("PUT",))

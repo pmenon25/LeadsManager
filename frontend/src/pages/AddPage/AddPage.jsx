@@ -9,7 +9,9 @@ class AddPage extends React.Component {
         lastname: "",
         email: "",
         notes: "",
-        contacted: false,
+        // contacted: false,
+        show: false,
+        errorMessage: "",
     }
 
     handleChange = (event) => {
@@ -24,20 +26,53 @@ class AddPage extends React.Component {
             lastname: "",
             email: "",
             notes: "",
-            contacted: false
+            contacted: false,
+            show: false,
+            errorMessage: "",
         })
     }
-    
+
+    setShow = (showState) => {
+        this.setState({ show: showState })
+    }
+
+    handleShow = () => this.setShow(true);
+
+    handleClose = () => this.setShow(false);
+
+    addLineBreaks = string =>
+        string.split('\n').map((text, index) => (
+            <React.Fragment key={`${text}-${index}`}>
+                {text}
+                <br />
+            </React.Fragment>
+        ));
+
     addLeads = async (event) => {
         event.preventDefault();
+
         try {
-            console.log("Sending form data")
-            axios.post(API_URL + "add/", this.state);
+            let response = await axios.post(API_URL + "add/", this.state);
             this.resetState();
             this.props.history.push('/')
+        } catch (error) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                let errorMessage = "The following fields have invalid data:\n";
 
-        } catch (err) {
-            console.log("Error:", err)
+                for (const property in error.response.data) {
+                    errorMessage = errorMessage.concat(`${property}: ${error.response.data[property]}\n`);
+                }
+
+                this.setState({ errorMessage: this.addLineBreaks(errorMessage) })
+                this.handleShow();
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.log(error.request);
+            } else {
+                console.log('Error', error.message);
+            }
         }
     }
 
@@ -49,8 +84,11 @@ class AddPage extends React.Component {
                     email={this.state.email}
                     notes={this.state.notes}
                     contacted={this.state.contacted}
+                    show={this.state.show}
+                    errorMessage={this.state.errorMessage}
                     handleChange={this.handleChange}
-                    addLeads={this.addLeads} />
+                    addLeads={this.addLeads}
+                    handleClose={this.handleClose} />
             </>
         );
     }

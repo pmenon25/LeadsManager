@@ -8,41 +8,42 @@ class HomePage extends React.Component {
         leads: []
     }
 
+    getAllLeads = () => {
+        axios.get(API_URL).then(res => this.setState({ leads: res.data }));
+    }
+
+    resetState = () => {
+        this.getAllLeads();
+    }
+
     async componentDidMount() {
         try {
-            let fetchResponse = await fetch(API_URL);
-            console.log(fetchResponse)
-            let leads = await fetchResponse.json();
-            this.setState({
-                leads: leads
-            })
+            this.resetState();
         } catch (err) {
             console.log("Error:", err)
         }
     }
-    resetState = () => {
-        this.setState({
-            firstname: "",
-            lastname: "",
-            email: "",
-            notes: "",
-            contacted: false
-        })
-    }
-    delete_lead = (id) => {
-        axios.delete(API_URL + id+"/delete/").then(() => {
+
+    deleteLead = async (id) => {
+        try {
+            axios.delete(API_URL + id + "/delete/")
             this.resetState();
-        });
-}
+        } catch (err) {
+            console.log("Error:", err)
+        }
+    }
+
     render() {
         return (
             <>
-                <Home leads={this.state.leads} 
-                delete= {this.delete_lead}/>
-
-
+                <Home
+                    leads={this.state.leads}
+                    delete={this.deleteLead}
+                    resetState={this.resetState} />
+                
             </>
         );
     }
 }
+
 export default HomePage;
