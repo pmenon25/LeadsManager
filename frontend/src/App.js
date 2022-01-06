@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Navbar, Nav} from "react-bootstrap"
+import { Container, Navbar, Nav } from "react-bootstrap"
 import './App.css';
 import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
 import HomePage from './pages/HomePage/HomePage';
@@ -19,13 +19,13 @@ class App extends Component {
           </Switch>
         </BrowserRouter>
         <Navbar bg="light" variant="light" fixed='top' >
-                <Container>
-                    <Navbar.Brand href="/">Lead Management</Navbar.Brand>
-                    <Nav className="d-flex">
-                        <Nav.Link href="/add">Add Leads</Nav.Link>
-                    </Nav>
-                </Container>
-            </Navbar>
+          <Container>
+            <Navbar.Brand href="/">Lead Management</Navbar.Brand>
+            <Nav className="d-flex">
+              <Nav.Link href="/add">Add Leads</Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
       </div>
     );
   }

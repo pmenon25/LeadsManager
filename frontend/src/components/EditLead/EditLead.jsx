@@ -11,7 +11,7 @@ import { isThisSecond } from 'date-fns/esm';
 class EditLead extends React.Component {
 
     state = {
-        id:this.props.lead.id,
+        id: this.props.lead.id,
         firstname: this.props.lead.firstname,
         lastname: this.props.lead.lastname,
         email: this.props.lead.email,
@@ -51,7 +51,7 @@ class EditLead extends React.Component {
     }
 
     render() {
-        let button = <Button variant="light"><FontAwesomeIcon onClick={this.toggle} icon={faEdit} size="sm" color='rgb(24, 23, 23)'/></Button>;
+        let button = <Button variant="light"><FontAwesomeIcon onClick={this.toggle} icon={faEdit} size="sm" color='rgb(24, 23, 23)' /></Button>;
 
         return (
             <>

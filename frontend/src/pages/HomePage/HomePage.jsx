@@ -26,7 +26,7 @@ class HomePage extends React.Component {
 
     deleteLead = async (id) => {
         try {
-           await axios.delete(API_URL + id + "/delete/")
+            await axios.delete(API_URL + id + "/delete/")
             this.resetState();
         } catch (err) {
             console.log("Error:", err)
