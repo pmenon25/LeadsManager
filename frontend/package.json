@@ -15,7 +15,18 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "^5.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.7",
+    "@babel/preset-react": "^7.16.7",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "babel-jest": "^27.4.6",
+    "jest": "^27.4.6",
+    "msw": "^0.36.3",
+    "msw-rest": "^0.32.0",
+    "react-test-renderer": "^17.0.2",
+    "react-testing-library": "^8.0.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

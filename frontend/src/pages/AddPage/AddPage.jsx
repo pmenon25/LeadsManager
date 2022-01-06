@@ -1,7 +1,7 @@
 import React from "react";
-import AddLeads from "../../components/AddLeads/AddLeads.jsx";
-import { API_URL } from "../../constants";
 import axios from "axios";
+import { API_URL } from "../../constants";
+import AddLeads from "../../components/AddLeads/AddLeads.jsx";
 
 class AddPage extends React.Component {
     state = {
@@ -9,9 +9,9 @@ class AddPage extends React.Component {
         lastname: "",
         email: "",
         notes: "",
-        // contacted: false,
-        show: false,
-        errorMessage: "",
+        contacted: false,
+        modalShow: false,
+        errorMessage: ""
     }
 
     handleChange = (event) => {
@@ -27,18 +27,19 @@ class AddPage extends React.Component {
             email: "",
             notes: "",
             contacted: false,
-            show: false,
-            errorMessage: "",
+
+            modalShow: false,
+            errorMessage: ""
         })
     }
 
-    setShow = (showState) => {
-        this.setState({ show: showState })
+    setShowErrorModal = (s) => {
+        this.setState({ modalShow: s })
     }
 
-    handleShow = () => this.setShow(true);
+    handleErrorModalShow = () => this.setShowErrorModal(true);
 
-    handleClose = () => this.setShow(false);
+    handleErrorModalClose = () => this.setShowErrorModal(false);
 
     addLineBreaks = string =>
         string.split('\n').map((text, index) => (
@@ -52,7 +53,15 @@ class AddPage extends React.Component {
         event.preventDefault();
 
         try {
-            let response = await axios.post(API_URL + "add/", this.state);
+            const lead = {
+                firstname: this.state.firstname,
+                lastname: this.state.lastname,
+                email: this.state.email,
+                notes: this.state.notes,
+                contacted: this.state.contacted,
+            }
+
+            let response = await axios.post(API_URL + "add/", lead);
             this.resetState();
             this.props.history.push('/')
         } catch (error) {
@@ -66,12 +75,12 @@ class AddPage extends React.Component {
                 }
 
                 this.setState({ errorMessage: this.addLineBreaks(errorMessage) })
-                this.handleShow();
+                this.handleErrorModalShow();
             } else if (error.request) {
                 // The request was made but no response was received
                 console.log(error.request);
             } else {
-                console.log('Error', error.message);
+                console.log('Error', error);
             }
         }
     }
@@ -79,16 +88,17 @@ class AddPage extends React.Component {
     render() {
         return (
             <>
-                <AddLeads firstname={this.state.firstname}
+                <AddLeads
+                    firstname={this.state.firstname}
                     lastname={this.state.lastname}
                     email={this.state.email}
                     notes={this.state.notes}
                     contacted={this.state.contacted}
-                    show={this.state.show}
+                    modalShow={this.state.modalShow}
                     errorMessage={this.state.errorMessage}
+                    handleSubmit={this.addLeads}
                     handleChange={this.handleChange}
-                    addLeads={this.addLeads}
-                    handleClose={this.handleClose} />
+                    handleClose={this.handleErrorModalClose} />
             </>
         );
     }

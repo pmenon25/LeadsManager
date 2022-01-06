@@ -1,18 +1,41 @@
+import React from 'react';
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Modal, FormGroup, Form } from "react-bootstrap";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { API_URL } from "../../constants";
 
 class LeadDetails extends React.Component {
 
     state = {
+        id: this.props.lead.id,
         firstname: this.props.lead.firstname,
         lastname: this.props.lead.lastname,
         email: this.props.lead.email,
         notes: this.props.lead.notes,
         contacted: this.props.lead.contacted,
         showDetailModal: false
+    }
+
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps != this.props) {
+            // Force a re-render of this component when the parent changes its props
+            this.resetState();
+        }
+    }
+
+    resetState() {
+        this.setState({
+            id: this.props.lead.id,
+            firstname: this.props.lead.firstname,
+            lastname: this.props.lead.lastname,
+            email: this.props.lead.email,
+            notes: this.props.lead.notes,
+            contacted: this.props.lead.contacted,
+            showDetailModal: false
+        });
     }
 
     toggle = () => {
@@ -22,7 +45,6 @@ class LeadDetails extends React.Component {
     }
 
     render() {
-
         let button = <Button variant="light"><FontAwesomeIcon onClick={this.toggle} icon={faInfoCircle} size="sm" color='rgb(24, 23, 23)' /></Button>;
 
         return (

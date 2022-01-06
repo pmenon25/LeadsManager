@@ -5,9 +5,7 @@ import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
 import HomePage from './pages/HomePage/HomePage';
 import AddPage from './pages/AddPage/AddPage';
 
-
 class App extends Component {
-  
   render() {
     return (
       <div className="App">
@@ -15,8 +13,6 @@ class App extends Component {
           <Switch>
             <Route exact path='/' render={(props) => (
               <HomePage {...props} />)} />
-            {/* <Route exact path='/:id' render={(props) => (
-        <DetailPage {...props} /> )} /> */}
             <Route exact path='/add' render={(props) => (
               <AddPage {...props} />)} />
             <Redirect to="/" />
